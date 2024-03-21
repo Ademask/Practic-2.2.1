@@ -2,6 +2,7 @@ package hiber.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "cars")
@@ -62,5 +63,28 @@ public class Car {
     public void setUser(User user) {
         this.user = user;
         user.setCar(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", user=" + user +
+                ", series=" + series +
+                ", model='" + model + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return series == car.series && Objects.equals(id, car.id) && Objects.equals(user, car.user) && Objects.equals(model, car.model);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, series, model);
     }
 }
